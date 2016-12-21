@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name" translatable="false">TransLate</string>
+    <string name="pref_key_cookies" translatable="false">cookies</string>
+    <string name="location_permissions_rationale" translatable="true">Location needed to show map with nearest stops.</string>
+    <string name="message_template_one" translatable="false">%1$s</string>
+    <string name="message_template_both" translatable="false">%1$s\n\n%2$s</string>
+    <string name="message_network_needed" translatable="true">Internet connection is required.\nPlease, enable network.</string>
+    <string name="message_location_needed" translatable="true">Location service is required.\nPlease, enable location.</string>
+</resources>

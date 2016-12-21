@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="margin_minus_50">-50dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_128">128dp</dimen>
+    <dimen name="margin_192">192dp</dimen>
+    <dimen name="margin_280">280dp</dimen>
+
+    <dimen name="text_18">18sp</dimen>
+    <dimen name="text_20">20sp</dimen>
+</resources>

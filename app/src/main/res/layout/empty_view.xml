@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/margin_128"
+        android:layout_height="@dimen/margin_128"
+        app:srcCompat="@drawable/ic_alert"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginEnd="@dimen/margin_32"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_32"
+        android:layout_marginStart="@dimen/margin_32"
+        android:layout_marginTop="@dimen/margin_128"
+        />
+
+    <TextView
+        android:id="@+id/tv_alert_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginEnd="@dimen/margin_32"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_32"
+        android:layout_marginStart="@dimen/margin_32"
+        android:layout_marginTop="@dimen/margin_280"
+        android:textColor="@color/colorGrey"
+        android:textSize="@dimen/text_18"
+        tools:text="Text text text"
+        android:gravity="center"
+        />
+
+</FrameLayout>
