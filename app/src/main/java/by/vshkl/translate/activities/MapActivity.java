@@ -35,6 +35,8 @@ public class MapActivity extends AppCompatActivity
     WebView wvMap;
     private AVLoadingIndicatorView pbLoading;
 
+    private boolean hasSavedState = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +46,22 @@ public class MapActivity extends AppCompatActivity
         wvMap = (WebView) findViewById(R.id.wv_map);
         pbLoading = (AVLoadingIndicatorView) findViewById(R.id.pb_loading);
 
+        hasSavedState = savedInstanceState != null;
+
         checkNetworkAndLocation();
         enableBroadcastReceiver();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        wvMap.restoreState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        wvMap.saveState(outState);
     }
 
     @Override
@@ -99,7 +115,9 @@ public class MapActivity extends AppCompatActivity
                 callback.invoke(origin, true, false);
             }
         });
-        wvMap.loadUrl(URL_MAP);
+        if (!hasSavedState) {
+            wvMap.loadUrl(URL_MAP);
+        }
     }
 
     private void checkPermissionsAndShowMap() {
@@ -176,7 +194,6 @@ public class MapActivity extends AppCompatActivity
             } else {
                 tvAlertMessage.setText(getString(R.string.message_template_one,
                         getString(R.string.message_location_needed)));
-
             }
         }
     }

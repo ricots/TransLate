@@ -25,10 +25,12 @@
 
         <activity
             android:name=".activities.LoginActivity"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".activities.MapActivity"
+            android:configChanges="orientation"
             android:theme="@style/AppTheme"/>
 
         <receiver

@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity
     private WebView wvLogin;
     private AVLoadingIndicatorView pbLoading;
 
+    private boolean hasSavedState = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,8 @@ public class LoginActivity extends AppCompatActivity
 
         wvLogin = (WebView) findViewById(R.id.wv_login);
         pbLoading = (AVLoadingIndicatorView) findViewById(R.id.pb_loading);
+
+        hasSavedState = savedInstanceState != null;
 
         checkNetwork();
         enableBroadcastReceiver();
@@ -52,7 +56,6 @@ public class LoginActivity extends AppCompatActivity
     }
 
     private void initializeWebView() {
-        wvLogin.loadUrl(URL_LOGIN);
         wvLogin.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -71,6 +74,9 @@ public class LoginActivity extends AppCompatActivity
             }
         });
         wvLogin.setWebChromeClient(new WebChromeClient());
+        if (!hasSavedState) {
+            wvLogin.loadUrl(URL_LOGIN);
+        }
     }
 
     private void enableBroadcastReceiver() {
