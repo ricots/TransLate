@@ -12,6 +12,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -33,6 +34,7 @@ public class MapActivity extends AppCompatActivity
 
     private FrameLayout rootView;
     WebView wvMap;
+    private ImageButton btnLocation;
     private AVLoadingIndicatorView pbLoading;
 
     private boolean hasSavedState = false;
@@ -44,12 +46,20 @@ public class MapActivity extends AppCompatActivity
 
         rootView = (FrameLayout) findViewById(R.id.root_view_map);
         wvMap = (WebView) findViewById(R.id.wv_map);
+        btnLocation = (ImageButton) findViewById(R.id.btn_location);
         pbLoading = (AVLoadingIndicatorView) findViewById(R.id.pb_loading);
 
         hasSavedState = savedInstanceState != null;
 
         checkNetworkAndLocation();
         enableBroadcastReceiver();
+
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkNetworkAndLocation();
+            }
+        });
     }
 
     @Override
@@ -161,6 +171,7 @@ public class MapActivity extends AppCompatActivity
 
     void showLoading() {
         wvMap.setVisibility(View.GONE);
+        btnLocation.setVisibility(View.GONE);
         pbLoading.show();
         pbLoading.setVisibility(View.VISIBLE);
     }
@@ -169,6 +180,7 @@ public class MapActivity extends AppCompatActivity
         pbLoading.hide();
         pbLoading.setVisibility(View.GONE);
         wvMap.setVisibility(View.VISIBLE);
+        btnLocation.setVisibility(View.VISIBLE);
     }
 
     void checkNetworkAndLocation() {
@@ -181,9 +193,11 @@ public class MapActivity extends AppCompatActivity
         if (hasNetwork && hasLocation) {
             emptyView.setVisibility(View.GONE);
             wvMap.setVisibility(View.VISIBLE);
+            btnLocation.setVisibility(View.VISIBLE);
             checkPermissionsAndShowMap();
         } else {
             wvMap.setVisibility(View.GONE);
+            btnLocation.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
             if (!hasNetwork && !hasLocation) {
                 tvAlertMessage.setText(getString(R.string.message_template_both,
