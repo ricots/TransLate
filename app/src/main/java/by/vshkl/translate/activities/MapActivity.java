@@ -30,11 +30,12 @@ public class MapActivity extends AppCompatActivity
 
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
+    private static final String URL_SCOREBOARD = "http://www.minsktrans.by/lookout_yard/Data/Scoreboard";
     private static final String URL_MAP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops";
 
     private FrameLayout rootView;
     WebView wvMap;
-    private ImageButton btnLocation;
+    ImageButton btnLocation;
     private AVLoadingIndicatorView pbLoading;
 
     private boolean hasSavedState = false;
@@ -98,6 +99,7 @@ public class MapActivity extends AppCompatActivity
     public void onBackPressed() {
         if (wvMap.canGoBack()) {
             wvMap.goBack();
+            btnLocation.setVisibility(View.VISIBLE);
         } else {
             super.onBackPressed();
         }
@@ -117,6 +119,14 @@ public class MapActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 hideLoading();
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+                if (url.startsWith(URL_SCOREBOARD)) {
+                    btnLocation.setVisibility(View.GONE);
+                }
             }
         });
         wvMap.setWebChromeClient(new WebChromeClient() {
