@@ -99,7 +99,6 @@ public class MapActivity extends AppCompatActivity
     public void onBackPressed() {
         if (wvMap.canGoBack()) {
             wvMap.goBack();
-            btnLocation.setVisibility(View.VISIBLE);
         } else {
             super.onBackPressed();
         }
@@ -119,14 +118,6 @@ public class MapActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 hideLoading();
-            }
-
-            @Override
-            public void onLoadResource(WebView view, String url) {
-                super.onLoadResource(view, url);
-                if (url.startsWith(URL_SCOREBOARD)) {
-                    btnLocation.setVisibility(View.GONE);
-                }
             }
         });
         wvMap.setWebChromeClient(new WebChromeClient() {
