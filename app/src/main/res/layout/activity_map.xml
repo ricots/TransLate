@@ -23,10 +23,10 @@
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
         android:background="@drawable/bg_button_location"
-        app:srcCompat="@drawable/ic_my_location"
-        android:scaleType="fitXY"
-        android:padding="4dp"
         android:elevation="4dp"
+        android:padding="4dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_my_location"
         />
 
     <com.wang.avi.AVLoadingIndicatorView
