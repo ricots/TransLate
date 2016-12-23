@@ -111,6 +111,7 @@ public class MapActivity extends AppCompatActivity
 
     private void initializeWebView() {
         CookieManager.getInstance().setCookie(URL_BASE, CookieHelper.getCookies(getApplicationContext()));
+        wvMap.clearHistory();
         wvMap.getSettings().setJavaScriptEnabled(true);
         wvMap.getSettings().setGeolocationEnabled(true);
         wvMap.setWebViewClient(new WebViewClient() {
