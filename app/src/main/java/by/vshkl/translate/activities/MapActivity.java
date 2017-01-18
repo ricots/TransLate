@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -32,6 +33,7 @@ public class MapActivity extends AppCompatActivity
     private static final String URL_BASE = "http://www.minsktrans.by";
     private static final String URL_SCOREBOARD = "http://www.minsktrans.by/lookout_yard/Data/Scoreboard";
     private static final String URL_MAP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops";
+    private static final String GOOGLE_MAP = " http://maps";
 
     private FrameLayout rootView;
     WebView wvMap;
@@ -112,6 +114,11 @@ public class MapActivity extends AppCompatActivity
     private void initializeWebView() {
         CookieManager.getInstance().setCookie(URL_BASE, CookieHelper.getCookies(getApplicationContext()));
         wvMap.clearHistory();
+        if (Build.VERSION.SDK_INT >= 19) {
+            wvMap.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            wvMap.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
         wvMap.getSettings().setJavaScriptEnabled(true);
         wvMap.getSettings().setGeolocationEnabled(true);
         wvMap.setWebViewClient(new WebViewClient() {
@@ -126,6 +133,7 @@ public class MapActivity extends AppCompatActivity
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
+
         });
         if (!hasSavedState) {
             wvMap.loadUrl(URL_MAP);
