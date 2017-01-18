@@ -119,6 +119,11 @@ public class MapActivity extends AppCompatActivity
         } else {
             wvMap.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
+        wvMap.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        wvMap.getSettings().setAppCacheEnabled(true);
+        wvMap.getSettings().setDomStorageEnabled(true);
+        wvMap.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        wvMap.getSettings().setUseWideViewPort(true);
         wvMap.getSettings().setJavaScriptEnabled(true);
         wvMap.getSettings().setGeolocationEnabled(true);
         wvMap.setWebViewClient(new WebViewClient() {
