@@ -31,9 +31,7 @@ public class MapActivity extends AppCompatActivity
 
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
-    private static final String URL_SCOREBOARD = "http://www.minsktrans.by/lookout_yard/Data/Scoreboard";
     private static final String URL_MAP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops";
-    private static final String GOOGLE_MAP = " http://maps";
 
     private FrameLayout rootView;
     WebView wvMap;
