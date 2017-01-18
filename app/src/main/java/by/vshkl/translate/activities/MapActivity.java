@@ -85,7 +85,8 @@ public class MapActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     initializeWebView();
                 }
@@ -117,11 +118,10 @@ public class MapActivity extends AppCompatActivity
         } else {
             wvMap.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
-        wvMap.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        wvMap.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         wvMap.getSettings().setAppCacheEnabled(true);
         wvMap.getSettings().setDomStorageEnabled(true);
         wvMap.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-        wvMap.getSettings().setUseWideViewPort(true);
         wvMap.getSettings().setJavaScriptEnabled(true);
         wvMap.getSettings().setGeolocationEnabled(true);
         wvMap.setWebViewClient(new WebViewClient() {
