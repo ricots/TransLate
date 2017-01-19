@@ -20,10 +20,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -285,6 +285,11 @@ public class MapActivity extends AppCompatActivity
 
     private void initializeDrawer() {
         drawer = new DrawerBuilder().withActivity(this)
+                .withAccountHeader(new AccountHeaderBuilder()
+                        .withActivity(this)
+                        .withCompactStyle(true)
+                        .withHeaderBackground(R.drawable.header)
+                        .build())
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -306,7 +311,6 @@ public class MapActivity extends AppCompatActivity
     private void updateDrawerItems(List<Stop> stops) {
         if (drawer != null) {
             drawer.removeAllItems();
-            drawer.addItem(new SectionDrawerItem().withName(R.string.drawer_section_favourite_stops));
             this.stops = stops;
             int size = this.stops.size();
             for (int i = 0; i < size; i++) {
