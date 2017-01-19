@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import by.vshkl.translate.R;
+import by.vshkl.translate.listeners.DeleteConfirmationListener;
 import by.vshkl.translate.listeners.StopEditListener;
 import by.vshkl.translate.listeners.StopsDialogListener;
 
@@ -39,7 +40,6 @@ public class DialogHelper {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
 
@@ -74,5 +74,23 @@ public class DialogHelper {
         });
 
         dialog.show();
+    }
+
+    public static void showDeleteConfirmationDialog(AppCompatActivity activity, final DeleteConfirmationListener listener,
+                                                    final int stopPosition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.dialog_stop_delete_title);
+        builder.setPositiveButton(R.string.dialog_stop_delete_button_positive, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                listener.onDeleteConfirmed(stopPosition);
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_stop_delete_button_negative, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.create().show();
     }
 }

@@ -22,4 +22,7 @@
     <string name="dialog_stop_edit_button_negative" translatable="true">Discard</string>
     <string name="dialog_stops_edit" translatable="true">Edit</string>
     <string name="dialog_stops_delete" translatable="true">Delete</string>
+    <string name="dialog_stop_delete_title" translatable="true">Delete selected stop?</string>
+    <string name="dialog_stop_delete_button_positive" translatable="true">Delete</string>
+    <string name="dialog_stop_delete_button_negative" translatable="true">Discard</string>
 </resources>

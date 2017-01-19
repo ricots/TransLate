@@ -30,6 +30,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.List;
 
 import by.vshkl.translate.R;
+import by.vshkl.translate.listeners.DeleteConfirmationListener;
 import by.vshkl.translate.listeners.StopEditListener;
 import by.vshkl.translate.listeners.StopsDialogListener;
 import by.vshkl.translate.model.Stop;
@@ -48,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MapActivity extends AppCompatActivity
         implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback,
-        StopEditListener, StopsDialogListener {
+        StopEditListener, StopsDialogListener, DeleteConfirmationListener {
 
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
@@ -163,6 +164,11 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onStopDelete(int stopPosition) {
+        DialogHelper.showDeleteConfirmationDialog(MapActivity.this, MapActivity.this, stopPosition);
+    }
+
+    @Override
+    public void onDeleteConfirmed(int stopPosition) {
         Stop stop = stops.get(stopPosition);
         if (stop != null) {
             deleteStop(stop);

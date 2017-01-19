@@ -16,4 +16,7 @@
     <string name="dialog_stop_edit_button_negative" translatable="true">Отменить</string>
     <string name="dialog_stops_edit" translatable="true">Редактировать</string>
     <string name="dialog_stops_delete" translatable="true">Удалить</string>
+    <string name="dialog_stop_delete_title" translatable="true">Удалить выбранную остановку?</string>
+    <string name="dialog_stop_delete_button_positive" translatable="true">Удалить</string>
+    <string name="dialog_stop_delete_button_negative" translatable="true">Отменить</string>
 </resources>
