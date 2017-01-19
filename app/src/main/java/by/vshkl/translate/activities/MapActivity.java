@@ -136,7 +136,8 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         if (wvMap.canGoBack()) {
-            wvMap.goBack();
+            wvMap.goBackOrForward(-1);
+            wvMap.clearHistory();
         } else {
             super.onBackPressed();
         }
