@@ -3,6 +3,9 @@
 
     <!-- Preferences -->
     <string name="pref_key_cookies" translatable="false">cookies</string>
+    
+    <!-- Events -->
+    <string name="event_stop_added">event_stop_added</string>
 
     <!-- Permissions -->
     <string name="location_permissions_rationale" translatable="true">Location needed to show map with nearest stops.</string>

@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -193,6 +194,7 @@ public class MapActivity extends AppCompatActivity
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
                         getAllStops();
+                        logAddStopAction();
                     }
                 });
     }
@@ -427,5 +429,11 @@ public class MapActivity extends AppCompatActivity
                         getString(R.string.message_location_needed)));
             }
         }
+    }
+
+    private void logAddStopAction() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.VALUE, "");
+        FirebaseAnalytics.getInstance(getApplicationContext()).logEvent(getString(R.string.event_stop_added), bundle);
     }
 }
