@@ -6,4 +6,5 @@
     <string name="message_template_both" translatable="false">%1$s\n\n%2$s</string>
     <string name="message_network_needed" translatable="true">Internet connection is required.\nPlease, enable network.</string>
     <string name="message_location_needed" translatable="true">Location service is required.\nPlease, enable location.</string>
+    <string name="drawer_section_favourite_stops" translatable="true">Favourite stops</string>
 </resources>

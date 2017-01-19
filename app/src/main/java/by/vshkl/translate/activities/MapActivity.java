@@ -20,6 +20,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
@@ -34,6 +39,7 @@ import by.vshkl.translate.utilities.LocationHelper;
 import by.vshkl.translate.utilities.NetworkHelper;
 import by.vshkl.translate.utilities.PermissionsHelper;
 import by.vshkl.translate.utilities.UrlHelper;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -50,6 +56,9 @@ public class MapActivity extends AppCompatActivity
     private ImageButton btnLocation;
     private ImageButton btnFavourite;
     private AVLoadingIndicatorView pbLoading;
+    private Drawer drawer;
+
+    private List<Stop> stops;
 
     private boolean hasSavedState = false;
 
@@ -65,6 +74,8 @@ public class MapActivity extends AppCompatActivity
         pbLoading = (AVLoadingIndicatorView) findViewById(R.id.pb_loading);
 
         hasSavedState = savedInstanceState != null;
+
+        initializeDrawer();
 
         checkNetworkAndLocation();
         enableBroadcastReceiver();
@@ -136,10 +147,11 @@ public class MapActivity extends AppCompatActivity
     private void addStopToFavourite(String stopUrl, @Nullable String stopName, @Nullable String stopDirection) {
         DbHelper.writeStop(stopUrl, stopName, stopDirection)
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-
+                        getAllStops();
                     }
                 });
     }
@@ -147,10 +159,11 @@ public class MapActivity extends AppCompatActivity
     private void deleteStop(Stop stop) {
         DbHelper.deleteStop(UrlHelper.extractStopId(stop.getUrl()))
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-
+                        getAllStops();
                     }
                 });
     }
@@ -158,10 +171,13 @@ public class MapActivity extends AppCompatActivity
     private void getAllStops() {
         DbHelper.readStops()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Stop>>() {
                     @Override
                     public void accept(List<Stop> stops) throws Exception {
-
+                        if (stops != null) {
+                            updateDrawerItems(stops);
+                        }
                     }
                 });
     }
@@ -214,6 +230,37 @@ public class MapActivity extends AppCompatActivity
         });
         if (!hasSavedState) {
             wvMap.loadUrl(URL_MAP);
+        }
+    }
+
+    private void initializeDrawer() {
+        drawer = new DrawerBuilder().withActivity(this)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                        return false;
+                    }
+                })
+                .build();
+        getAllStops();
+    }
+
+    private void updateDrawerItems(List<Stop> stops) {
+        if (drawer != null) {
+            drawer.removeAllItems();
+            drawer.addItem(new SectionDrawerItem().withName(R.string.drawer_section_favourite_stops));
+            this.stops = stops;
+            int size = this.stops.size();
+            for (int i = 0; i < size; i++) {
+                Stop stop = this.stops.get(i);
+                PrimaryDrawerItem item = new PrimaryDrawerItem()
+                        .withIdentifier(i)
+                        .withIcon(R.drawable.ic_stop_marker)
+                        .withName(stop.getName())
+                        .withDescription(stop.getDirection());
+                drawer.addItem(item);
+            }
         }
     }
 

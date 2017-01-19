@@ -27,7 +27,7 @@ public class DbHelper {
                 final Stop stop = new Stop();
                 stop.setUrl(stopUrl);
                 stop.setName(stopName != null ? stopName : stopId);
-                stop.setDirection(stopDirection != null ? stopDirection : "");
+                stop.setDirection(stopDirection != null ? stopDirection : "To the nowhere...");
 
                 Book book = Paper.book(BOOK_STOPS).write(stopId, stop);
 

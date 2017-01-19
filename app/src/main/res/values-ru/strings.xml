@@ -3,4 +3,5 @@
     <string name="location_permissions_rationale" translatable="true">Определение местоположения необходимо для показа карты с ближайшими остановками.</string>
     <string name="message_network_needed" translatable="true">Необходимо соединение с интернетом.\nПожалуйста, включите интернет.</string>
     <string name="message_location_needed" translatable="true">Необходимо определение местоположения.\nПожалуйста, включите определение местоположения.</string>
+    <string name="drawer_section_favourite_stops" translatable="true">Избранные остановки</string>
 </resources>
