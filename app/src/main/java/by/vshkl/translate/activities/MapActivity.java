@@ -247,7 +247,7 @@ public class MapActivity extends AppCompatActivity
                         if (view.getUrl().startsWith(URL_STOP)) {
                             btnLocation.setVisibility(View.GONE);
                             btnFavourite.setVisibility(View.VISIBLE);
-                        } else {
+                        } else if (view.equals(URL_MAP)) {
                             btnFavourite.setVisibility(View.GONE);
                             btnLocation.setVisibility(View.VISIBLE);
                         }
