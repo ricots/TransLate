@@ -3,6 +3,7 @@ package by.vshkl.translate.activities;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -94,7 +95,7 @@ public class MapActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE:
                 if (grantResults.length > 0
@@ -121,6 +122,8 @@ public class MapActivity extends AppCompatActivity
     public void onStateChangeReceived() {
         checkNetworkAndLocation();
     }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     private void initializeWebView() {
         CookieManager.getInstance().setCookie(URL_BASE, CookieHelper.getCookies(getApplicationContext()));
@@ -171,6 +174,30 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
+    private void showLoading() {
+        wvMap.setVisibility(View.GONE);
+        btnLocation.setVisibility(View.GONE);
+        pbLoading.show();
+        pbLoading.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+        pbLoading.hide();
+        pbLoading.setVisibility(View.GONE);
+        wvMap.setVisibility(View.VISIBLE);
+        btnLocation.setVisibility(View.VISIBLE);
+    }
+
+    private void enableBroadcastReceiver() {
+        BroadcastReceiverHelper.enableBroadcastReceiver(this);
+        NetworkAndLocationStateReceiver.setCallback(this);
+    }
+
+    private void disableBroadcastReceiver() {
+        BroadcastReceiverHelper.disableBroadcastReceiver(this);
+        NetworkAndLocationStateReceiver.removeCallback();
+    }
+
     private void checkPermissionsAndShowMap() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!PermissionsHelper.hasLocationPermissions(MapActivity.this)) {
@@ -200,31 +227,7 @@ public class MapActivity extends AppCompatActivity
                 .show();
     }
 
-    private void enableBroadcastReceiver() {
-        BroadcastReceiverHelper.enableBroadcastReceiver(this);
-        NetworkAndLocationStateReceiver.setCallback(this);
-    }
-
-    private void disableBroadcastReceiver() {
-        BroadcastReceiverHelper.disableBroadcastReceiver(this);
-        NetworkAndLocationStateReceiver.removeCallback();
-    }
-
-    void showLoading() {
-        wvMap.setVisibility(View.GONE);
-        btnLocation.setVisibility(View.GONE);
-        pbLoading.show();
-        pbLoading.setVisibility(View.VISIBLE);
-    }
-
-    void hideLoading() {
-        pbLoading.hide();
-        pbLoading.setVisibility(View.GONE);
-        wvMap.setVisibility(View.VISIBLE);
-        btnLocation.setVisibility(View.VISIBLE);
-    }
-
-    void checkNetworkAndLocation() {
+    private void checkNetworkAndLocation() {
         FrameLayout emptyView = (FrameLayout) findViewById(R.id.empty_view_map);
         TextView tvAlertMessage = (TextView) findViewById(R.id.tv_alert_message);
 
