@@ -9,6 +9,8 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,6 +34,7 @@ public class MapActivity extends AppCompatActivity
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
     private static final String URL_MAP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops";
+    private static final String URL_STOP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops&s=";
 
     private FrameLayout rootView;
     WebView wvMap;
@@ -130,13 +133,23 @@ public class MapActivity extends AppCompatActivity
                 super.onPageFinished(view, url);
                 hideLoading();
             }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(final WebView view, WebResourceRequest request) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnLocation.setVisibility(view.getUrl().startsWith(URL_STOP) ? View.GONE : View.VISIBLE);
+                    }
+                });
+                return super.shouldInterceptRequest(view, request);
+            }
         });
         wvMap.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
-
         });
         if (!hasSavedState) {
             wvMap.loadUrl(URL_MAP);
