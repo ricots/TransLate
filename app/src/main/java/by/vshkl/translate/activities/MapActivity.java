@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,13 +22,20 @@ import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.List;
+
 import by.vshkl.translate.R;
+import by.vshkl.translate.model.Stop;
 import by.vshkl.translate.receivers.NetworkAndLocationStateReceiver;
 import by.vshkl.translate.utilities.BroadcastReceiverHelper;
 import by.vshkl.translate.utilities.CookieHelper;
+import by.vshkl.translate.utilities.DbHelper;
 import by.vshkl.translate.utilities.LocationHelper;
 import by.vshkl.translate.utilities.NetworkHelper;
 import by.vshkl.translate.utilities.PermissionsHelper;
+import by.vshkl.translate.utilities.UrlHelper;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MapActivity extends AppCompatActivity
         implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback {
@@ -71,7 +79,7 @@ public class MapActivity extends AppCompatActivity
         btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addStopToFavourite(wvMap.getUrl(), null, null);
             }
         });
     }
@@ -121,6 +129,41 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onStateChangeReceived() {
         checkNetworkAndLocation();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    private void addStopToFavourite(String stopUrl, @Nullable String stopName, @Nullable String stopDirection) {
+        DbHelper.writeStop(stopUrl, stopName, stopDirection)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+
+                    }
+                });
+    }
+
+    private void deleteStop(Stop stop) {
+        DbHelper.deleteStop(UrlHelper.extractStopId(stop.getUrl()))
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+
+                    }
+                });
+    }
+
+    private void getAllStops() {
+        DbHelper.readStops()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<List<Stop>>() {
+                    @Override
+                    public void accept(List<Stop> stops) throws Exception {
+
+                    }
+                });
     }
 
     //------------------------------------------------------------------------------------------------------------------
