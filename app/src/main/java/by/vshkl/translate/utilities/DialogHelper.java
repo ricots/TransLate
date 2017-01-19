@@ -1,10 +1,12 @@
 package by.vshkl.translate.utilities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class DialogHelper {
 
     public static void showEditStopDialog(AppCompatActivity activity, final String stopUrl, String stopName,
                                           String stopDirection, final StopEditListener listener) {
+        final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_stop_edit, null);
@@ -27,6 +30,8 @@ public class DialogHelper {
 
         etName.setText(stopName);
         etDirection.setText(stopDirection);
+
+        etName.requestFocus();
 
         builder.setTitle(activity.getString(R.string.dialog_stop_edit_title));
         builder.setPositiveButton(activity.getString(R.string.dialog_stop_edit_button_positive),
@@ -40,10 +45,12 @@ public class DialogHelper {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     }
                 });
 
         builder.create().show();
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     public static void showStopsDialog(AppCompatActivity activity, final StopsDialogListener listener,

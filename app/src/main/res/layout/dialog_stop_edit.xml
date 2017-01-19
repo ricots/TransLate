@@ -18,6 +18,7 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textAutoComplete"
             android:hint="@string/dialog_stop_edit_hint_name"
             />
 
@@ -26,6 +27,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
@@ -35,6 +37,7 @@
             android:id="@+id/et_direction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textAutoComplete"
             android:hint="@string/dialog_stop_edit_hint_direction"
             />
 
