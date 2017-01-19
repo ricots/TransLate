@@ -98,10 +98,8 @@ public class MapActivity extends AppCompatActivity
                 String url = wvMap.getUrl();
                 if (isStopInList(url)) {
                     DialogHelper.showDeleteConfirmationDialog(MapActivity.this, MapActivity.this, findStop(url));
-                    btnFavourite.setImageResource(R.drawable.ic_star);
                 } else {
                     DialogHelper.showEditStopDialog(MapActivity.this, wvMap.getUrl(), "", "", MapActivity.this);
-                    btnFavourite.setImageResource(R.drawable.ic_star_selected);
                 }
             }
         });
@@ -159,6 +157,7 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onStopEdited(String stopUrl, String stopName, String stopDirection) {
+        updateStopFavouriteIcon(wvMap.getUrl());
         addStopToFavourite(stopUrl, stopName, stopDirection);
     }
 
@@ -177,6 +176,7 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onDeleteConfirmed(int stopPosition) {
+        updateStopFavouriteIcon(wvMap.getUrl());
         Stop stop = stops.get(stopPosition);
         if (stop != null) {
             deleteStop(stop);
@@ -255,7 +255,7 @@ public class MapActivity extends AppCompatActivity
                         if (url.startsWith(URL_STOP)) {
                             btnLocation.setVisibility(View.GONE);
                             btnFavourite.setVisibility(View.VISIBLE);
-                            btnFavourite.setImageResource(!isStopInList(url) ? R.drawable.ic_star : R.drawable.ic_star_selected);
+                            updateStopFavouriteIcon(url);
                         } else if (url.equals(URL_MAP)) {
                             btnFavourite.setVisibility(View.GONE);
                             btnLocation.setVisibility(View.VISIBLE);
@@ -333,6 +333,10 @@ public class MapActivity extends AppCompatActivity
         pbLoading.setVisibility(View.GONE);
         wvMap.setVisibility(View.VISIBLE);
         btnLocation.setVisibility(View.VISIBLE);
+    }
+
+    private void updateStopFavouriteIcon(String url) {
+        btnFavourite.setImageResource(!isStopInList(url) ? R.drawable.ic_star : R.drawable.ic_star_selected);
     }
 
     private boolean isStopInList(String url) {
