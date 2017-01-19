@@ -242,12 +242,25 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
+    private void loadStopTimetable(int stopPosition) {
+        if (stops != null) {
+            Stop stop = stops.get(stopPosition);
+            wvMap.loadUrl(stop.getUrl());
+        }
+    }
+
     private void initializeDrawer() {
         drawer = new DrawerBuilder().withActivity(this)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
+                        loadStopTimetable((int) drawerItem.getIdentifier());
+                        return false;
+                    }
+                })
+                .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(View view, int position, IDrawerItem drawerItem) {
                         return false;
                     }
                 })
