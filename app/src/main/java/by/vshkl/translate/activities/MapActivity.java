@@ -37,8 +37,9 @@ public class MapActivity extends AppCompatActivity
     private static final String URL_STOP = "http://www.minsktrans.by/lookout_yard/Home/Index/minsk?neareststops&s=";
 
     private FrameLayout rootView;
-    WebView wvMap;
-    ImageButton btnLocation;
+    private WebView wvMap;
+    private ImageButton btnLocation;
+    private ImageButton btnFavourite;
     private AVLoadingIndicatorView pbLoading;
 
     private boolean hasSavedState = false;
@@ -51,6 +52,7 @@ public class MapActivity extends AppCompatActivity
         rootView = (FrameLayout) findViewById(R.id.root_view_map);
         wvMap = (WebView) findViewById(R.id.wv_map);
         btnLocation = (ImageButton) findViewById(R.id.btn_location);
+        btnFavourite = (ImageButton) findViewById(R.id.btn_favourite);
         pbLoading = (AVLoadingIndicatorView) findViewById(R.id.pb_loading);
 
         hasSavedState = savedInstanceState != null;
@@ -62,6 +64,13 @@ public class MapActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 checkNetworkAndLocation();
+            }
+        });
+
+        btnFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -139,7 +148,13 @@ public class MapActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        btnLocation.setVisibility(view.getUrl().startsWith(URL_STOP) ? View.GONE : View.VISIBLE);
+                        if (view.getUrl().startsWith(URL_STOP)) {
+                            btnLocation.setVisibility(View.GONE);
+                            btnFavourite.setVisibility(View.VISIBLE);
+                        } else {
+                            btnFavourite.setVisibility(View.GONE);
+                            btnLocation.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
                 return super.shouldInterceptRequest(view, request);
