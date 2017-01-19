@@ -20,4 +20,6 @@
     <string name="dialog_stop_edit_hint_direction" translatable="true">Stop direction</string>
     <string name="dialog_stop_edit_button_positive" translatable="true">Save</string>
     <string name="dialog_stop_edit_button_negative" translatable="true">Discard</string>
+    <string name="dialog_stops_edit" translatable="true">Edit</string>
+    <string name="dialog_stops_delete" translatable="true">Delete</string>
 </resources>

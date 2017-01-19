@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import by.vshkl.translate.R;
 import by.vshkl.translate.listeners.StopEditListener;
+import by.vshkl.translate.listeners.StopsDialogListener;
 
 public class DialogHelper {
 
@@ -42,5 +44,35 @@ public class DialogHelper {
                 });
 
         builder.create().show();
+    }
+
+    public static void showStopsDialog(AppCompatActivity activity, final StopsDialogListener listener,
+                                       final int stopPosition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_stops, null);
+        builder.setView(dialogView);
+        final AlertDialog dialog = builder.create();
+
+        final TextView tvEdit = (TextView) dialogView.findViewById(R.id.tv_edit);
+        final TextView tvDelete = (TextView) dialogView.findViewById(R.id.tv_delete);
+
+        tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                listener.onStopEdit(stopPosition);
+            }
+        });
+
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                listener.onStopDelete(stopPosition);
+            }
+        });
+
+        dialog.show();
     }
 }

@@ -31,6 +31,7 @@ import java.util.List;
 
 import by.vshkl.translate.R;
 import by.vshkl.translate.listeners.StopEditListener;
+import by.vshkl.translate.listeners.StopsDialogListener;
 import by.vshkl.translate.model.Stop;
 import by.vshkl.translate.receivers.NetworkAndLocationStateReceiver;
 import by.vshkl.translate.utilities.BroadcastReceiverHelper;
@@ -46,7 +47,8 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MapActivity extends AppCompatActivity
-        implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback, StopEditListener {
+        implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback,
+        StopEditListener, StopsDialogListener {
 
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
@@ -149,6 +151,22 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onStopEdited(String stopUrl, String stopName, String stopDirection) {
         addStopToFavourite(stopUrl, stopName, stopDirection);
+    }
+
+    @Override
+    public void onStopEdit(int stopPosition) {
+        Stop stop = stops.get(stopPosition);
+        if (stop != null) {
+            DialogHelper.showEditStopDialog(MapActivity.this, stop.getUrl(), stop.getName(), stop.getDirection(), MapActivity.this);
+        }
+    }
+
+    @Override
+    public void onStopDelete(int stopPosition) {
+        Stop stop = stops.get(stopPosition);
+        if (stop != null) {
+            deleteStop(stop);
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -261,6 +279,7 @@ public class MapActivity extends AppCompatActivity
                 .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(View view, int position, IDrawerItem drawerItem) {
+                        DialogHelper.showStopsDialog(MapActivity.this, MapActivity.this, (int) drawerItem.getIdentifier());
                         return false;
                     }
                 })
