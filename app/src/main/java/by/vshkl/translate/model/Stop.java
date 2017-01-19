@@ -34,7 +34,7 @@ public class Stop {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Stop{");
+        final StringBuilder sb = new StringBuilder("Stop{");
         sb.append("url='").append(url).append('\'');
         sb.append(", name='").append(name).append('\'');
         sb.append(", direction='").append(direction).append('\'');

@@ -11,9 +11,6 @@
     <string name="message_network_needed" translatable="true">Internet connection is required.\nPlease, enable network.</string>
     <string name="message_location_needed" translatable="true">Location service is required.\nPlease, enable location.</string>
 
-    <!-- Drawer -->
-    <string name="drawer_section_favourite_stops" translatable="true">Favourite stops</string>
-
     <!-- Dialog -->
     <string name="dialog_stop_edit_title" translatable="true">Edit stop</string>
     <string name="dialog_stop_edit_hint_name" translatable="true">Stop name</string>
