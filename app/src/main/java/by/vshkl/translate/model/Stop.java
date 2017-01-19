@@ -8,17 +8,6 @@ public class Stop {
     public Stop() {
     }
 
-    public Stop(String url, String name) {
-        this.url = url;
-        this.name = name;
-    }
-
-    public Stop(String url, String name, String direction) {
-        this.url = url;
-        this.name = name;
-        this.direction = direction;
-    }
-
     public String getUrl() {
         return url;
     }

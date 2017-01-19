@@ -95,7 +95,14 @@ public class MapActivity extends AppCompatActivity
         btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelper.showEditStopDialog(MapActivity.this, wvMap.getUrl(), "", "", MapActivity.this);
+                String url = wvMap.getUrl();
+                if (isStopInList(url)) {
+                    DialogHelper.showDeleteConfirmationDialog(MapActivity.this, MapActivity.this, findStop(url));
+                    btnFavourite.setImageResource(R.drawable.ic_star);
+                } else {
+                    DialogHelper.showEditStopDialog(MapActivity.this, wvMap.getUrl(), "", "", MapActivity.this);
+                    btnFavourite.setImageResource(R.drawable.ic_star_selected);
+                }
             }
         });
     }
@@ -244,10 +251,12 @@ public class MapActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (view.getUrl().startsWith(URL_STOP)) {
+                        String url = view.getUrl();
+                        if (url.startsWith(URL_STOP)) {
                             btnLocation.setVisibility(View.GONE);
                             btnFavourite.setVisibility(View.VISIBLE);
-                        } else if (view.getUrl().equals(URL_MAP)) {
+                            btnFavourite.setImageResource(!isStopInList(url) ? R.drawable.ic_star : R.drawable.ic_star_selected);
+                        } else if (url.equals(URL_MAP)) {
                             btnFavourite.setVisibility(View.GONE);
                             btnLocation.setVisibility(View.VISIBLE);
                         }
@@ -324,6 +333,24 @@ public class MapActivity extends AppCompatActivity
         pbLoading.setVisibility(View.GONE);
         wvMap.setVisibility(View.VISIBLE);
         btnLocation.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isStopInList(String url) {
+        for (Stop stop : stops) {
+            if (stop.getUrl().equals(url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int findStop(String url) {
+        for (int i = 0; i < stops.size(); i++) {
+            if (stops.get(i).getUrl().equals(url)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void enableBroadcastReceiver() {
