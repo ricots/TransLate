@@ -1,9 +1,28 @@
 <resources>
     <string name="app_name" translatable="false">TransLate</string>
+
+    <!-- Preferences -->
     <string name="pref_key_cookies" translatable="false">cookies</string>
+
+    <!-- Events -->
+    <string name="event_stop_added" translatable="false">event_stop_added</string>
+
+    <!-- Permissions -->
     <string name="location_permissions_rationale" translatable="true">Location needed to show map with nearest stops.</string>
     <string name="message_template_one" translatable="false">%1$s</string>
     <string name="message_template_both" translatable="false">%1$s\n\n%2$s</string>
     <string name="message_network_needed" translatable="true">Internet connection is required.\nPlease, enable network.</string>
     <string name="message_location_needed" translatable="true">Location service is required.\nPlease, enable location.</string>
+
+    <!-- Dialog -->
+    <string name="dialog_stop_edit_title" translatable="true">Edit stop</string>
+    <string name="dialog_stop_edit_hint_name" translatable="true">Stop name</string>
+    <string name="dialog_stop_edit_hint_direction" translatable="true">Stop direction</string>
+    <string name="dialog_stop_edit_button_positive" translatable="true">Save</string>
+    <string name="dialog_stop_edit_button_negative" translatable="true">Discard</string>
+    <string name="dialog_stops_edit" translatable="true">Edit</string>
+    <string name="dialog_stops_delete" translatable="true">Delete</string>
+    <string name="dialog_stop_delete_title" translatable="true">Delete selected stop?</string>
+    <string name="dialog_stop_delete_button_positive" translatable="true">Delete</string>
+    <string name="dialog_stop_delete_button_negative" translatable="true">Discard</string>
 </resources>

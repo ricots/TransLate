@@ -28,6 +28,21 @@
         app:srcCompat="@drawable/ic_my_location"
         />
 
+    <ImageButton
+        android:id="@+id/btn_favourite"
+        android:layout_width="@dimen/size_button_24"
+        android:layout_height="@dimen/size_button_24"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:background="@drawable/bg_button_location"
+        android:elevation="@dimen/elevation_button_4"
+        android:padding="@dimen/padding_button_4"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_star"
+        />
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/pb_loading"
         style="@style/AVLoadingIndicatorView.Large"

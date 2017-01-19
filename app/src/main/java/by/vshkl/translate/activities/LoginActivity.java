@@ -95,17 +95,17 @@ public class LoginActivity extends AppCompatActivity
         NetworkAndLocationStateReceiver.removeCallback();
     }
 
-    void showLoading() {
+    private void showLoading() {
         wvLogin.setVisibility(View.GONE);
         pbLoading.show();
     }
 
-    void hideLoading() {
+    private void hideLoading() {
         pbLoading.hide();
         wvLogin.setVisibility(View.VISIBLE);
     }
 
-    void checkNetwork() {
+    private void checkNetwork() {
         FrameLayout emptyView = (FrameLayout) findViewById(R.id.empty_view_login);
         TextView tvAlertMessage = (TextView) findViewById(R.id.tv_alert_message);
 
