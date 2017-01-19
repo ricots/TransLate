@@ -37,6 +37,7 @@
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
         android:background="@drawable/bg_button_location"
+        android:elevation="@dimen/elevation_button_4"
         android:padding="@dimen/padding_button_4"
         android:scaleType="fitXY"
         android:visibility="gone"

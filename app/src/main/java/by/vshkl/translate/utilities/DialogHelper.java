@@ -1,0 +1,46 @@
+package by.vshkl.translate.utilities;
+
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+
+import by.vshkl.translate.R;
+import by.vshkl.translate.listeners.StopEditListener;
+
+public class DialogHelper {
+
+    public static void showEditStopDialog(AppCompatActivity activity, final String stopUrl, String stopName,
+                                          String stopDirection, final StopEditListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_stop_edit, null);
+        builder.setView(dialogView);
+
+        final EditText etName = (EditText) dialogView.findViewById(R.id.et_name);
+        final EditText etDirection = (EditText) dialogView.findViewById(R.id.et_direction);
+
+        etName.setText(stopName);
+        etDirection.setText(stopDirection);
+
+        builder.setTitle(activity.getString(R.string.dialog_stop_edit_title));
+        builder.setPositiveButton(activity.getString(R.string.dialog_stop_edit_button_positive),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.onStopEdited(stopUrl, etName.getText().toString(), etDirection.getText().toString());
+                    }
+                });
+        builder.setNegativeButton(activity.getString(R.string.dialog_stop_edit_button_negative),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        builder.create().show();
+    }
+}

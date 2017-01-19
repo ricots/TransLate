@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Permissons -->
     <string name="location_permissions_rationale" translatable="true">Определение местоположения необходимо для показа карты с ближайшими остановками.</string>
     <string name="message_network_needed" translatable="true">Необходимо соединение с интернетом.\nПожалуйста, включите интернет.</string>
     <string name="message_location_needed" translatable="true">Необходимо определение местоположения.\nПожалуйста, включите определение местоположения.</string>
+
+    <!-- Drawer -->
     <string name="drawer_section_favourite_stops" translatable="true">Избранные остановки</string>
+
+    <!-- Dialog -->
+    <string name="dialog_stop_edit_title" translatable="true">Редактировать остановку</string>
+    <string name="dialog_stop_edit_hint_name" translatable="true">Название остановки</string>
+    <string name="dialog_stop_edit_hint_direction" translatable="true">Направление</string>
+    <string name="dialog_stop_edit_button_positive" translatable="true">Сохранить</string>
+    <string name="dialog_stop_edit_button_negative" translatable="true">Отменить</string>
 </resources>

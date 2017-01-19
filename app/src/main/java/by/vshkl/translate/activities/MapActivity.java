@@ -30,11 +30,13 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.List;
 
 import by.vshkl.translate.R;
+import by.vshkl.translate.listeners.StopEditListener;
 import by.vshkl.translate.model.Stop;
 import by.vshkl.translate.receivers.NetworkAndLocationStateReceiver;
 import by.vshkl.translate.utilities.BroadcastReceiverHelper;
 import by.vshkl.translate.utilities.CookieHelper;
 import by.vshkl.translate.utilities.DbHelper;
+import by.vshkl.translate.utilities.DialogHelper;
 import by.vshkl.translate.utilities.LocationHelper;
 import by.vshkl.translate.utilities.NetworkHelper;
 import by.vshkl.translate.utilities.PermissionsHelper;
@@ -44,7 +46,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MapActivity extends AppCompatActivity
-        implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback {
+        implements NetworkAndLocationStateReceiver.NetworkAndLocationStateReceiverCallback, StopEditListener {
 
     private static final int REQUEST_CODE = 42;
     private static final String URL_BASE = "http://www.minsktrans.by";
@@ -90,7 +92,7 @@ public class MapActivity extends AppCompatActivity
         btnFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStopToFavourite(wvMap.getUrl(), null, null);
+                DialogHelper.showEditStopDialog(MapActivity.this, wvMap.getUrl(), "", "", MapActivity.this);
             }
         });
     }
@@ -140,6 +142,13 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onStateChangeReceived() {
         checkNetworkAndLocation();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public void onStopEdited(String stopUrl, String stopName, String stopDirection) {
+        addStopToFavourite(stopUrl, stopName, stopDirection);
     }
 
     //------------------------------------------------------------------------------------------------------------------
